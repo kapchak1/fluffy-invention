@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя первая страница</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9999, #99ff99, #9999ff);
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            transition: all 0.5s;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        .danger-button {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            background: linear-gradient(45deg, #ff0000, #ff6666);
+            color: white;
+            padding: 20px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transform: translateY(-50%);
+            box-shadow: 0 0 15px rgba(255,0,0,0.5);
+            transition: all 0.3s;
+        }
+        .danger-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 25px rgba(255,0,0,0.8);
+        }
+        .toggle-button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            width: 200px;
+        }
+        .content {
+            display: none;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #4CAF50;
+            margin: 5px 0;
+        }
+        .virus-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #000000, #ff0000);
+            color: #00ff00;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 20%;
+            z-index: 1000;
+            font-family: 'Courier New', monospace;
+        }
+        .blink {
+            animation: blink 0.5s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        .smiley {
+            font-size: 80px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Моя первая страница</h1>
+        
+        <p>На дисциплине «Введение в специальность» мы изучаем основы программирования, компьютерные системы и технологии разработки ПО.</p>
+        
+        <button class="toggle-button" onclick="toggleContent('high-level')">Языки высокого уровня ▼</button>
+        <div id="high-level" class="content">
+            <ul>
+                <li>Python</li>
+                <li>Java</li>
+                <li>JavaScript</li>
+            </ul>
+            <p><strong>Пример на Python:</strong><br>print("Hello, World!")</p>
+        </div>
+
+        <button class="toggle-button" onclick="toggleContent('low-level')">Языки низкого уровня ▼</button>
+        <div id="low-level" class="content">
+            <ol>
+                <li>Ассемблер</li>
+                <li>Машинный код</li>
+                <li>C (относится к низкоуровневым)</li>
+            </ol>
+            <p><strong>Пример на ассемблере:</strong><br>mov ax, 5<br>add ax, 3</p>
+        </div>
+        
+        <a href="https://www.python.org" target="_blank">Официальный сайт Python</a>
+    </div>
+
+    <button class="danger-button" onclick="activateVirus()">DELETE SYSTEM32</button>
+
+    <div id="virusMessage" class="virus-overlay">
+        <div class="blink">УЖЕ ПОЗДНО ВЛАДИСЛАВ СЕРГЕЕВИЧ!</div>
+        <div>Мой лично разработанный вирус проник в ваш компьютер</div>
+        <div class="smiley">😈 💻 🔥</div>
+        <div style="font-size: 24px; margin-top: 50px;">Удаление файлов... 127.0.0.1/32768</div>
+    </div>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const button = content.previousElementSibling;
+            
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                button.innerHTML = button.innerHTML.replace("▲", "▼");
+            } else {
+                content.style.display = "block";
+                button.innerHTML = button.innerHTML.replace("▼", "▲");
+            }
+        }
+
+        function activateVirus() {
+            const overlay = document.getElementById('virusMessage');
+            const body = document.body;
+            
+            // Показываем сообщение вируса
+            overlay.style.display = 'block';
+            
+            // Меняем фон основной страницы
+            body.style.background = '#000000';
+            body.style.color = '#ff0000';
+            
+            // Скрываем основной контент
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('.danger-button').style.display = 'none';
+            
+            // Добавляем мигающий эффект
+            setTimeout(() => {
+                overlay.innerHTML += '<div class="blink" style="font-size: 36px; margin-top: 30px;">ПЕРЕЗАГРУЗКА ЧЕРЕЗ 10...</div>';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
